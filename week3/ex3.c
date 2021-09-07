@@ -1,74 +1,101 @@
-#include <stdio.h>
-#include <stdlib.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <time.h>
 
-
-// Creating a node
-struct node {
-  int data;
-  struct node *next;
-};
-
-
-void print_list(struct node *head)
+struct node
 {
-	while (head != NULL) {
-	    printf("%d ", head->data);
-	    head = head->next;
-	}	
+	int val;
+	struct node *next, *prev;
 };
 
+int n;
+struct node *head = NULL;
 
-void insert_node(struct node *head, struct node *newnode, struct node *prevnode)
+void print_list( struct node *node )
 {
+	if( node != NULL )
+	{
+		printf("%d ", node->val);
+		print_list(node->next);
+	}
+}
 
-    if (prevnode == NULL)
-    {
-	    printf("The given previous node cannot be NULL");    
-    }
-         
-    struct node* new_node =(struct node*) malloc(sizeof(struct node));
- 
-    new_node->data = newnode;
-    new_node->next = prevnode->next;
-    prevnode->next = new_node;
-	
-};
-
-
-
-void delete_node(struct node *head, struct node *delnode)
+void insert_node( struct node *node, int newVal )
 {
-	struct node *temp = *head, *prev;
- 
- 
-    if (temp != NULL && temp == delnode) {
-        *head = temp->next; 
-        free(temp);
-        return;
-    }
- 
-    while (temp != NULL && temp != delnode) {
-        prev = temp;
-        temp = temp->next;
-    }
- 
-    if (temp == NULL)
-        return;
- 
-    prev->next = temp->next;
- 
-    free(temp);
-	
-};
+	struct node* newNode = (struct node*) malloc(sizeof(struct node));
+	newNode->val = newVal;
+	newNode->next = NULL;
+	newNode->prev = node;
+	node->next = newNode;
+	n++;
+}
+
+void delete_node( struct node *node )
+{
+	if( node->next != NULL && node->prev != NULL )
+	{
+		node->next->prev = node->prev;
+		node->prev->next = node->next;
+	}
+	else if( node->next != NULL )
+	{
+		node->next->prev = NULL;
+		head = node->next;
+	}
+	else if( node->prev != NULL )
+	{
+		node->prev->next = NULL;
+	}
+	else{
+		head = NULL;
+	}
+	free(node);
+	n--;
+}
 
 int main()
 {
-	printf("Working on it...");
-	
-	struct node* head = NULL;
-	
-    insert_node(&head, 2, 1);
+	srand(time(0));
+	printf("\nPlease enter the size of LinkedList: ");
+	int size;
+	scanf("%d", &size);
+	struct node *cur = NULL;
+	int i;
+	for( i = 0; i < size; i ++ )
+	{
+		int val = rand() % 1001;
+		if( i )
+		{
+			insert_node(cur, val);
+			cur = cur->next;
+		}
+		else
+		{
+			head = (struct node*) malloc(sizeof(struct node));
+			head->prev = NULL;
+			head->next = NULL;
+			head->val = val;
+			cur = head;
+		}
+	}
+	printf("Initial array: "); 
+	print_list(head);
+	printf("\n\n");
 
+	while( n )
+	{
+		int index = rand() % n;
+		cur = head;
+		int i;
+		for(i = 0; i < index; i ++ )
+		{
+			cur = cur->next;
+		}
+		delete_node(cur);
+		printf("%d th is node deleted!\n", index);
+		printf("Linked list after deleting: ");
+		print_list(head);
+		printf("\n\n");
+	}
 	return 0;
 }
-
