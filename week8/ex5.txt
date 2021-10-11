@@ -1,0 +1,8 @@
+*PHYSICAL ADDRESS:
+The program knows the real layout of RAM and accessing a variable indicates,
+the real address value of the variable stored in the physical RAMs.
+
+*VIRTUAL ADDRESS:
+All application memory accesses go to a page table abstracted by OS. 
+The aforementioned page maps variables and data from the virtual to 
+the physical address. 

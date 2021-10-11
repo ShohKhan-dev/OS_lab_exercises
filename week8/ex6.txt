@@ -1,0 +1,4 @@
+Page ~ 8KB = 8192B = 2^13B
+Virtual Address ~ 16-Bit -> 16-Bits to save the Virtual Address
+-> we need 16-bits to address any pages
+-> the offset is stored in remaining 13-Bits
