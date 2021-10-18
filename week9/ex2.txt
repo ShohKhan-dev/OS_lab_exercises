@@ -1,0 +1,13 @@
+To increase (maximize Hit rate, minimize Miss rate),
+we can request the same page reference multiple consecutive times.
+Example: 1 1 1 1 1 1 -> 5 hits, 1 miss
+
+To decrease (minimize Hit rate, maximize Miss rate)
+we can request many different references with small repetitions as possible.
+Example: 1 2 3 4 5 6 -> 0 hits, 6 misses
+
+
+example from ex1:
+
+Hit rate 375
+Miss rate 625
