@@ -1,0 +1,43 @@
+The number specified for the permission is bits corresponding to the r(read)w(write)x(execute) permissions for each type of user
+
+r=read, w=write, and x=execute
+
+Example:
+	7 = 111 = rwx
+	6 = 110 = rw-
+	5 = 101 = r-x
+	4 = 100 = r--
+	0 = 000 = ---
+	
+u   g   o
+rwx rwx rwx
+	
+Where:
+	u - user 
+	g - group
+	o - owner
+	 
+	
+1) What does 660 mean for ex3.txt?
+	 u   g   o
+	110 110 000
+	rw- rw- ---
+	 6   6   0
+
+	user and group can read and write and owner cannot do anything
+
+2) What does 775 mean for ex3.txt?
+	 u   g   o
+	111 111 101
+	rwx rwx r-x
+	7    7   5
+	
+	user and group can do anything, but owner can only read and execute
+
+3) What does 777 mean for ex3.txt?
+	 u   g   o
+	111 111 111
+	rwx rwx rwx
+	 7   7   7
+
+	Everyone can read, write, and execute file.
